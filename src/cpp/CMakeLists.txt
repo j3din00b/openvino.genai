@@ -31,6 +31,9 @@ function(ov_genai_build_jinja2cpp)
         set(JINJA2CPP_STRICT_WARNINGS OFF CACHE BOOL "")
         set(JINJA2CPP_PIC ON CACHE BOOL "")
 
+        # options for Jinja2Cpp dependencies
+        option(RAPIDJSON_BUILD_DOC "Build rapidjson documentation." OFF)
+
         add_subdirectory("${jinja2cpp_SOURCE_DIR}" "${jinja2cpp_BINARY_DIR}" EXCLUDE_FROM_ALL)
     endif()
 endfunction()
@@ -64,7 +67,7 @@ if(DEFINED PY_BUILD_CMAKE_PACKAGE_NAME AND LINUX)
     # Don't pack symlinks but append version hash to the name for wheel
     set_target_properties(${TARGET_NAME} PROPERTIES
         SUFFIX ${CMAKE_SHARED_LIBRARY_SUFFIX}.${MAJOR_SUFFIX}${OpenVINOGenAI_VERSION_MINOR}${OpenVINOGenAI_VERSION_PATCH})
-elseif(DEFINED PY_BUILD_CMAKE_PACKAGE_NAME AND APPELE)
+elseif(DEFINED PY_BUILD_CMAKE_PACKAGE_NAME AND APPLE)
     set_target_properties(${TARGET_NAME} PROPERTIES
         SUFFIX .${MAJOR_SUFFIX}${OpenVINOGenAI_VERSION_MINOR}${OpenVINOGenAI_VERSION_PATCH}${CMAKE_SHARED_LIBRARY_SUFFIX})
 else()
